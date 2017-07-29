@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="gr__lego4scrum_lutzen_dk"><head>
+  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>LEGO4Scrum Timers</title>
+  <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/flipclock.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+	
+	ol {
+      list-style-type: none;
+	}
+
+    .Aligner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .Aligner-item {
+      flex: 1;
+      text-align: center;
+    }
+
+    .name {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 5vw;
+    }
+
+	.timer-wrapper {
+		text-align: center;
+	}
+	
+	.timer {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.highlight {
+		color: #F00;
+	}
+
+  </style>
+</head>
+
+<body data-gr-c-s-loaded="true">
+  <div class="Aligner">
+    
+    <div class="Aligner-item">
+      <p class=" slide-title name" style="margin-bottom: 0px;"></p>
+	  
+	  <div class="timer-wrapper">
+		  <div class="timer"></div>
+	  </div>
+    </div>
+	<div class="Aligner-item">
+      <ol class="outline">
+		  <li class="name">Refinement</li>
+  		  <li class="name">Planning</li>
+		  <li class="name highlight">Retrospective</li>
+	  </ol>
+    </div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/js/flipclock.min.js"></script>
+<script src="assets/js/lego4scrum.js"></script>
+
+</body>
+</html>
