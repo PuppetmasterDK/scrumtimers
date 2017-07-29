@@ -7,7 +7,8 @@ var createSlide = function(title, timer) {
 
 var slides = [
 	createSlide("Planning", 0.1), 
-	createSlide("Sprint", 7), createSlide("Retrospective", 0)
+	createSlide("Sprint", 7),
+	createSlide("Retrospective", 0)
 ];
 
 var currentSlideIndex = 0;
@@ -153,19 +154,91 @@ var previousSlide = function() {
 	}
 }
 
+// Hook up add event
+$("#add-slide").click(function(e) {
+	e.preventDefault();
+	slides[slides.length] = createSlide($("#slide-title-input").val(), $("#slide-duration-input").val());
+	
+	renderOutline();
+	
+	$(".add-slide").dialog("close");
+	return false;
+});
+
+// Hook up edit event
+$("#save-slides").click(function(e) {
+	e.preventDefault
+	
+	var newSlides = [];
+	$.each(slides, function(index, slide) {
+		if (!$("#edit-delete-" + index).is(":checked")) {
+			newSlides[newSlides.length] = createSlide($("#edit-title-" + index).val(), $("#edit-duration-" + index).val());	
+		}
+	});
+	slides = newSlides;
+	
+	currentSlideIndex = 0;
+	renderOutline();
+	renderSlide(currentSlideIndex);
+	
+	$(".edit-slides").dialog("close");
+	return false;
+});
+
+var showEdit = function() {
+	var container = $(".slide-edit");
+	container.empty();
+	$.each(slides, function(index, slide) {
+		var div = $("<div/>")
+		var title = $("<input/>")
+			.val(slide.title)
+			.attr("id", "edit-title-" + index);
+			
+		var duration = $("<input/>")
+			.val(slide.timer / 60)
+			.attr("id", "edit-duration-" + index);
+		
+		var deleteMeLabel = $("<label/>")
+			.attr("for", "edit-delete-" + index)
+			.text("Delete slide?");
+		
+		var deleteMe = $("<input/>")
+			.attr("type", "checkbox")
+			.val("yes")
+			.attr("id", "edit-delete-" + index);
+			
+		div.append(title, $("<br>"), duration, $("<br>"), deleteMeLabel, deleteMe, $("<br>"), $("<br>"));
+		
+		container.append(div);
+	});
+	$(".edit-slides").dialog();	
+}
+
 /**
  * Register event
  */
 $(window).keydown(function(e) {
-	switch(e.which) {
-	case 32: // Spacebar
-	case 48: // Down arrow
-		nextSlide();
-		break;
-	case 38: // Up arrow
-		previousSlide();
-		break;
+	console.log("Key: " + e.which);
+	
+	if (!$(".add-slide ").is(":visible") && !$(".edit-slides ").is(":visible")) {
+		switch(e.which) {
+		case 32: // Spacebar
+		case 48: // Down arrow
+			nextSlide();
+			return false;
+		case 38: // Up arrow
+			previousSlide();
+			return false;
+		case 65: // A
+			$(".add-slide").dialog();
+			return false;
+		case 69: // E
+			showEdit();
+			return false;
+		}
+		
 	}
+	
 });
 
 // Initialize
