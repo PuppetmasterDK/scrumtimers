@@ -57,8 +57,9 @@ button.button-error {
 	margin-left: 10px;
 }
 
-.edit-slides-link {
+.tool-controls {
     position: absolute;
     bottom: 0;
     right: 10px;
+	font-size: 80%;
 }
