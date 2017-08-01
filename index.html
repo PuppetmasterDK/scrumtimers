@@ -4,79 +4,31 @@
   <title>LEGO4Scrum Timers</title>
   <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
 
+  <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/flipclock.css">
-  <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    }
-	
-	ol {
-      list-style-type: none;
-	}
-
-    .Aligner {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .Aligner-item {
-      flex: 1;
-      text-align: center;
-    }
-
-    .name {
-      font-family: 'Shadows Into Light', cursive;
-      font-size: 5vw;
-    }
-
-	.timer-wrapper {
-		text-align: center;
-	}
-	
-	.timer {
-		display: inline-block;
-		width: auto;
-	}
-	
-	.highlight {
-		color: #F00;
-	}
-	
-	.hide {
-		display: none;
-	}
-
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
 </head>
 
 <body data-gr-c-s-loaded="true">
-	
-  <div class="add-slide hide">
-	  <form action="#">
-		  <div>
-		  	<label for="slide-title-input">Title</label><br />
-		  	<input type="text" id="slide-title-input" />
-		  </div>
-		  
-		  <div>
-			  <label for="slide-duration-input">Duration in minutes(empty if no timer)</label><br />
-			  <input type="integer" id="slide-duration-input" />
-		  </div>
-		  
-		  <br />
-		  <button id="add-slide">Add Slide</button>
-	  </form>
-  </div>
-  
+	<a href="#" class="edit-slides-link">Edit</a>
+
   <div class="edit-slides hide">
-	  <div class="slide-edit"></div>
-	  <button id="save-slides">Save Slides</button>
+	  <div class="hide">
+		  <form class="template pure-form">
+		      <fieldset>
+		          <input type="text" class="title" placeholder="Title">
+				  <label class="enable-timer-label">
+					  <input type="checkbox" class="enable-timer" value="yes">
+					  Timer?
+ 				  </label>
+				  <input type="number" placeholder="Duration">
+		      </fieldset>
+		  </form>
+	  </div>
+	  <form class="slide-edit pure-form"></form>
+      <div class="pure-controls">
+          <button id="add-slide" type="submit" class="pure-button">Add Slide</button><button id="save-slides" type="submit" class="pure-button pure-button-primary">Save Slides</button>
+      </div>
 	  
   </div>
 	
@@ -94,7 +46,6 @@
 	  </ol>
     </div>
   </div>
-
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

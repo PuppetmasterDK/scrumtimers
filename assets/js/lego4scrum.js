@@ -154,30 +154,17 @@ var previousSlide = function() {
 	}
 }
 
-// Hook up add event
-$("#add-slide").click(function(e) {
-	e.preventDefault();
-	slides[slides.length] = createSlide($("#slide-title-input").val(), $("#slide-duration-input").val());
-	
-	renderOutline();
-	
-	$(".add-slide").dialog("close");
-	return false;
-});
-
 // Hook up edit event
 $("#save-slides").click(function(e) {
 	e.preventDefault
 	
 	var newSlides = [];
-	$.each(slides, function(index, slide) {
-		if (!$("#edit-delete-" + index).is(":checked")) {
-			newSlides[newSlides.length] = createSlide($("#edit-title-" + index).val(), $("#edit-duration-" + index).val());	
-		}
+	$.each($(".slide-edit").children("fieldset"), function(index, slide) {
+		newSlides[newSlides.length] = createSlide($(slide).find(".title").val(), $(slide).find(".duration").val());	
 	});
 	slides = newSlides;
 	
-	currentSlideIndex = 0;
+	currentSlideIndex = 0; /* TODO: Fix this */
 	renderOutline();
 	renderSlide(currentSlideIndex);
 	
@@ -185,40 +172,98 @@ $("#save-slides").click(function(e) {
 	return false;
 });
 
+// Hook up add event
+$("#add-slide").click(function(e) {
+	e.preventDefault
+	
+	var container = $(".slide-edit");
+	var fieldset = createForm(createSlide("", 0));
+	container.append(fieldset);
+	
+	return false;
+});
+
+var counter = 0;
+var createForm = function(slide) {
+	var index = counter++;
+	var handle = $("<span/>")
+		.addClass("ui-icon ui-icon-arrowthick-2-n-s");
+	var fieldset = $("<fieldset/>")
+	var title = $("<input/>")
+		.addClass("rmargin10 title")
+		.val(slide.title)
+		.attr("placeholder", "Title")
+		.attr("id", "edit-title-" + index);
+	var enable = $("<input/>")
+		.addClass("rmargin10")
+		.attr("type", "checkbox")
+		.val("yes")
+		.attr("id", "edit-enable-timer-" + index)
+		.change(function() {
+			$("#edit-duration-" + index).prop("readonly", !$(this).is(":checked"));
+		});
+		;
+		if (slide.timer > 0) {
+			enable.prop("checked", true);
+		}
+	var label = $("<label/>")
+		.attr("for", "edit-enable-timer-" + index)
+		.append(enable, "Enable Timer?");
+	var duration = $("<input/>")
+		.addClass("rmargin10 lmargin10")
+		.addClass("pure-u-1-8 duration")
+		.attr("type", "number")
+		.attr("id", "edit-duration-" + index);
+		if (slide.timer == 0) {
+			duration.prop("readonly", true);
+		} else {
+			duration.val(slide.timer / 60)
+		}
+	var deleteBtn = $("<button/>")
+		.addClass("pure-button button-error")
+		.attr("type", "submit")
+		.text("Delete Slide")
+		.click(function(e) {
+			e.preventDefault();
+			console.log("Remove slide");
+			fieldset.slideUp(function() {
+				fieldset.remove();
+			});
+			return false;
+		});
+		
+	fieldset.append(handle, title, enable, label, duration, deleteBtn);
+	
+	
+	return fieldset;
+}
+
 var showEdit = function() {
 	var container = $(".slide-edit");
 	container.empty();
 	$.each(slides, function(index, slide) {
-		var div = $("<div/>")
-		var title = $("<input/>")
-			.val(slide.title)
-			.attr("id", "edit-title-" + index);
-			
-		var duration = $("<input/>")
-			.val(slide.timer / 60)
-			.attr("id", "edit-duration-" + index);
-		
-		var deleteMeLabel = $("<label/>")
-			.attr("for", "edit-delete-" + index)
-			.text("Delete slide?");
-		
-		var deleteMe = $("<input/>")
-			.attr("type", "checkbox")
-			.val("yes")
-			.attr("id", "edit-delete-" + index);
-			
-		div.append(title, $("<br>"), duration, $("<br>"), deleteMeLabel, deleteMe, $("<br>"), $("<br>"));
-		
-		container.append(div);
+		var fieldset = createForm(slide);
+		container.append(fieldset);
 	});
-	$(".edit-slides").dialog();	
+	container.sortable();
+	    container.disableSelection();
+	$(".edit-slides").dialog({
+		minWidth: 600
+	});	
 }
+
+$(".edit-slides-link").click(function(e) {
+	e.preventDefault();
+	
+	showEdit();
+	
+	return false;
+});
 
 /**
  * Register event
  */
 $(window).keydown(function(e) {
-	console.log("Key: " + e.which);
 	
 	if (!$(".add-slide ").is(":visible") && !$(".edit-slides ").is(":visible")) {
 		switch(e.which) {
@@ -228,9 +273,6 @@ $(window).keydown(function(e) {
 			return false;
 		case 38: // Up arrow
 			previousSlide();
-			return false;
-		case 65: // A
-			$(".add-slide").dialog();
 			return false;
 		case 69: // E
 			showEdit();

@@ -1,0 +1,64 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+ol {
+  list-style-type: none;
+}
+
+.Aligner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Aligner-item {
+  flex: 1;
+  text-align: center;
+}
+
+.name {
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 5vw;
+}
+
+.timer-wrapper {
+	text-align: center;
+}
+
+.timer {
+	display: inline-block;
+	width: auto;
+}
+
+.highlight {
+	color: #F00;
+}
+
+.hide {
+	display: none;
+}
+
+button.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+	color: #FFF;
+}
+
+.rmargin10 {
+	margin-right: 10px;
+}
+
+.lmargin10 {
+	margin-left: 10px;
+}
+
+.edit-slides-link {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
