@@ -284,9 +284,11 @@ $(window).keydown(function(e) {
         switch (e.which) {
             case 32: // Spacebar
             case 48: // Down arrow
+			case 34: // Page down
                 nextSlide();
                 return false;
             case 38: // Up arrow
+			case 33: // Page up
                 previousSlide();
                 return false;
             case 69: // E
