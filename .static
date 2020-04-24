@@ -1,1 +1,1 @@
-NGINX_ROOT="./"
+NGINX_ROOT="public/"
